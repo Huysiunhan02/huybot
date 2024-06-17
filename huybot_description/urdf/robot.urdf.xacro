@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+
+    <xacro:arg name="use_ros2_control" default="true" />
+    <xacro:arg name="sim_mode" default="false" />
+    
+    <xacro:property name="package_name" value="huybot_description" />
+    <xacro:property name="robot_name" value="andino" />
+
+    <xacro:include filename="$(find ${package_name})/urdf/include/common_macros.urdf.xacro" />
+    <xacro:include filename="$(find ${package_name})/urdf/include/common_sensors.urdf.xacro" />
+    <xacro:include filename="$(find ${package_name})/urdf/include/andino_caster_macro.urdf.xacro" />
+
+    <xacro:arg name="yaml_config_dir" default="$(find ${package_name})/config/${robot_name}" />
+
+    <xacro:property name="caster_wheel_yaml" value="$(arg yaml_config_dir)/caster_wheel.yaml" />
+    <xacro:property name="caster_wheel_props" value="${xacro.load_yaml(caster_wheel_yaml)}" />
+
+    <xacro:arg name="use_fixed_caster" default="False" />
+    <xacro:arg name="use_real_ros_control" default="True" />
+
+    <xacro:property name="base_yaml" value="$(arg yaml_config_dir)/base.yaml" />
+    <xacro:property name="base_props" value="${xacro.load_yaml(base_yaml)}" />
+    <xacro:property name="wheel_yaml" value="$(arg yaml_config_dir)/wheel.yaml" />
+    <xacro:property name="wheel_props" value="${xacro.load_yaml(wheel_yaml)}" />
+    <xacro:property name="sensor_yaml" value="$(arg yaml_config_dir)/sensors.yaml" />
+    <xacro:property name="sensor_prop" value="${xacro.load_yaml(sensor_yaml)}" />
+
+    <!-- Footprint -->
+    <xacro:footprint wheel_props="${wheel_props}" />
+
+    <!-- Base link -->
+
+    <link name="base_link">
+
+    </link>
+    <!-- Chassis link -->
+    <joint name="chassis" type="fixed">
+      <parent link="base_link" />
+      <child link="chassis" />
+      <origin xyz="0.05 0.0 0.04" />
+    </joint>
+
+    <link name="chassis">
+      <visual>
+        <origin xyz="-0.115 0.0 0.0375" />
+        <geometry>
+          <box size="0.23 0.15 0.075" />
+        </geometry>
+        <material name="white" />
+      </visual>
+      <collision>
+        <origin xyz="-0.115 0.0 0.0375" />
+        <geometry>
+          <box size="0.23 0.15 0.075" />
+        </geometry>
+        <material name="white" />
+      </collision>
+      <xacro:box_inertia m="0.1"
+                         x="0.23" y="0.15"
+                         z="0.075"
+                         o_xyz='-0.115 0.0 0.0375'
+                         o_rpy='0.0 0.0 0.0'>
+      </xacro:box_inertia>
+    </link>
+
+    <gazebo reference="chassis">
+      <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- Wheels -->
+    <xacro:wheel prefix="right" reflect="-1"
+      wheel_props="${wheel_props}"
+      base_props="${base_props}">
+    </xacro:wheel>
+
+    <xacro:wheel prefix="left" reflect="1"
+      wheel_props="${wheel_props}"
+      base_props="${base_props}">
+    </xacro:wheel>
+
+    <!--caster wheel-->
+    <joint name="sp_caster_wheel_joint" type="fixed">
+      <parent link="chassis" />
+      <child link="caster_wheel_sp" />
+      <origin xyz="-0.18 0.0 0.0" />
+    </joint>
+    <link name="caster_wheel_sp">
+      <visual>
+        <origin xyz="0.0 0.0 -0.015" />
+        <geometry>
+          <box size="0.01 0.01 0.03" />
+        </geometry>
+        <material name="red" />
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.02 0.02 0.03" />
+        </geometry>
+      </collision>
+      <xacro:box_inertia m="0.01" x="0.01" y="0.01" z="0.03" o_xyz='0.0 0.0 0.0' o_rpy='0.0 0.0 0.0'>
+      </xacro:box_inertia>
+    </link>
+
+    <xacro:caster_wheel reflect="-1" use_fixed="$(arg use_fixed_caster)"
+      wheel_props="${caster_wheel_props}">
+    </xacro:caster_wheel>
+
+    <!-- Sensors -->
+    <xacro:laser prefix="rplidar" parent_link="chassis" sensor_prop="${sensor_prop}">
+    </xacro:laser>
+    <xacro:camera_sensor parent_link="chassis" sensor_prop="${sensor_prop}">
+    </xacro:camera_sensor>
+    
+    <xacro:if value="$(arg use_ros2_control)">
+        <xacro:include filename="$(find ${package_name})/urdf/include/ros2_control.xacro" />
+    </xacro:if>
+
+</robot>
