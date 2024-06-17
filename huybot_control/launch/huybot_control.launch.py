@@ -23,24 +23,23 @@ def generate_launch_description():
         parameters=[{'robot_description': ParameterValue(robot_description, value_type=str)},
                     controller_params_file],
         remappings=[
-            ('/diff_controller/cmd_vel', '/cmd_vel'), # Used if use_stamped_vel param is true
-            ('/diff_controller/cmd_vel_unstamped', '/cmd_vel'), # Used if use_stamped_vel param is false
-            ('/diff_controller/cmd_vel_out', '/cmd_vel_out'), # Used if publish_limited_velocity param is true
-            ('/diff_controller/odom', '/odom'),
+            ('/diff_cont/cmd_vel', '/cmd_vel'), # Used if use_stamped_vel param is true
+            ('/diff_cont/cmd_vel_unstamped', '/cmd_vel'), # Used if use_stamped_vel param is false
+            ('/diff_cont/cmd_vel_out', '/cmd_vel_out'), # Used if publish_limited_velocity param is true
+            ('/diff_cont/odom', '/odom'),
         ],
-        output="both",
     )
 
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+        arguments=["joint_broad", "--controller-manager", "/controller_manager"],
     )
 
     diff_drive_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["diff_controller", "--controller-manager", "/controller_manager"],
+        arguments=["diff_cont", "--controller-manager", "/controller_manager"],
     )
 
     # Delay start of diff_drive_controller_spawner after `joint_state_broadcaster`

@@ -2,13 +2,13 @@ controller_manager:
   ros__parameters:
     update_rate: 30
 
-    diff_controller:
+    diff_cont:
       type: diff_drive_controller/DiffDriveController
 
-    joint_state_broadcaster:
+    joint_broad:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-diff_controller:
+diff_cont:
   ros__parameters:
     publish_rate: 50.0
     base_frame_id: base_link
@@ -60,5 +60,5 @@ diff_controller:
 
 
 
-# joint_state_broadcaster:
+# joint_broad:
 #   ros__parameters:
