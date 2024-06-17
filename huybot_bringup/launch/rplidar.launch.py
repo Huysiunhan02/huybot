@@ -103,7 +103,7 @@ def generate_launch_description():
             executable="scan_to_scan_filter_chain",
             parameters=[
                 PathJoinSubstitution([
-                    get_package_share_directory("huybot_brinup"),
+                    get_package_share_directory("huybot_bringup"),
                     "config", "laser_range_filter.yaml",
                 ])],
             output='screen',
