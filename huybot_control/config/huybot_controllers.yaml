@@ -14,7 +14,7 @@ diff_cont:
     base_frame_id: base_link
     left_wheel_names: ['left_wheel_joint']
     right_wheel_names: ['right_wheel_joint']
-    wheel_separation: 0.199
+    wheel_separation: 0.203
     wheel_radius: 0.032
     odom_frame_id: odom
     base_frame_id: base_link
