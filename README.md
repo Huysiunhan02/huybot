@@ -2,7 +2,19 @@
 
 Robot điều khiển vi sai phát triển trên ROS 2
 
-Gói này chứa các tệp cấu hình, khởi chạy robot.
+<img src="docs/myrobot.jpg" />
+
+### Phần cứng
+
+| Number | Module | Part |
+|:--:|:--:|:-----------------------:|
+| 1 | SBC | Raspberry Pi 4 B (4 Gb) | 
+| 2 | Khung xe |  Hộp nhựa (23x15x7.5 cm) |
+| 3 | Motors | 2 x Động cơ encoder giảm tốc GB37-3530 |
+| 4 | Microcontroller | Arduino Uno |
+| 5 | Motor Driver | Module L298N |
+| 6 | Laser Scanner |	RPLidar A1M8 |
+| 6 | Camera |	Webcam HD 720p |
 
 ## :mechanical_arm: Cài đặt
 
@@ -64,6 +76,12 @@ source install/setup.bash
 
 ```
 ros2 launch huybot_slam slam_toolbox_online_async.launch.py
+```
+
+### Navigation
+
+```
+ros2 launch huybot_slam bringup.launch.py
 ```
 
 ## :star2: Tham khảo
