@@ -2,7 +2,7 @@
 
 Robot điều khiển vi sai phát triển trên ROS 2
 
-<img style="height: 50%" src="docs/myrobot.jpg" />
+<img width="50%" src="docs/myrobot.jpg" />
 
 ### Phần cứng
 
