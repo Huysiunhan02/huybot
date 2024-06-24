@@ -63,7 +63,7 @@ source install/setup.bash
 ### Slam
 
 ```
-ros2 launch slam_toolbox online_async_launch.py params_file:=./src/diff_robot/config/mapper_params_online_async.yaml use_sim_time:=false
+ros2 launch huybot_slam slam_toolbox_online_async.launch.py
 ```
 
 ## :star2: Tham khảo
