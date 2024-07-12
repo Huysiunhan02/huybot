@@ -80,6 +80,7 @@ source install/setup.bash
 ```
 ros2 launch huybot_bringup huybot_bringup.launch.py
 ```
+<img width="100%" src="docs/rviz.png" />
 
 ### Slam
 
