@@ -14,7 +14,8 @@ Robot điều khiển vi sai phát triển trên ROS 2
 | 4 | Microcontroller | Arduino Uno |
 | 5 | Motor Driver | Module L298N |
 | 6 | Laser Scanner |	RPLidar A1M8 |
-| 6 | Camera |	Webcam HD 720p |
+| 7 | Camera |	Webcam HD 720p |
+| 8 | Display |	Màn oled 0.96 inch |
 
 ## :mechanical_arm: Cài đặt
 
@@ -50,7 +51,7 @@ cd ~/dev_ws/src
 git clone https://github.com/Huysiunhan02/huybot.git
 ```
 
-3. Install dependencies via `rosdep`
+3. Cài đặt các gói phụ thuộc qua `rosdep`
 
 ```
 cd ~/dev_ws
@@ -72,11 +73,20 @@ colcon build
 source install/setup.bash
 ```
 
+## :rocket: Sử dụng
+
+### Khởi động
+
+```
+ros2 launch huybot_bringup huybot_bringup.launch.py
+```
+
 ### Slam
 
 ```
 ros2 launch huybot_slam slam_toolbox_online_async.launch.py
 ```
+<img width="100%" src="docs/slam.png" />
 
 ### Navigation
 
